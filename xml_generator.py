@@ -60,13 +60,27 @@ class Generator(object):
 
         #self.sub_element(sub, sub_text)
 
-        subs = {'name':'test name 1st', 'url':'test url 2nd', 'deadline':'test deadline 3rd', 'description':'test description 4th'}
+
+        #tags will not appear in order because dictionaries are unordered.
+        #subs = {'name':'test name 1st', 'url':'test url 2nd', 'deadline':'test deadline 3rd', 'description':'test description 4th'}
 
         #for sub_tag, sub_text in subs.items():
             #self.sub_element(sub_tag, sub_text)
 
-        for sub_tag, sub_text in subs.items():
-            self.sub_element(sub_tag, sub_text)
+
+        subs = []
+        sub1 = ['name','should be 1st']
+        sub2 = ['url','should be 2nd']
+        sub3 = ['deadline','should be 3rd']
+        sub4 = ['description','should be 4th']
+
+        subs.append(sub1)
+        subs.append(sub2)
+        subs.append(sub3)
+        subs.append(sub4)
+
+        for i in range(0,len(subs)):
+            self.sub_element(subs[i][0],subs[i][1])
 
 
         indent(self.root)
