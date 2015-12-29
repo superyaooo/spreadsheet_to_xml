@@ -1,8 +1,9 @@
 from xml.etree.ElementTree import ElementTree
 from xml.etree.ElementTree import Element
 import xml.etree.ElementTree as etree
+impo
 
-
+# this function indents xml tags
 def indent(elem, level=0):
     i = "\n" + level*"  "
     if len(elem):
@@ -19,6 +20,7 @@ def indent(elem, level=0):
             elem.tail = i
 
 
+#------------- basic xml generation test out -------------
 
 #root = Element('program')
 #tree = ElementTree(root)
@@ -39,6 +41,8 @@ def indent(elem, level=0):
 #root.append(description)
 #description.text = "test description"
 
+#-------------- end of basic xml generation test out -------
+
 class Generator(object):
     def __init__(self, root_tag):
         self.root_tag = root_tag
@@ -55,19 +59,29 @@ class Generator(object):
     def generator(self):
         self.set_root()
 
+#-------------------------generator version 1---------------------------
+
         #sub = raw_input("What's the sub tag?")
         #sub_text = raw_input("What's the text for %s?" % sub)
 
         #self.sub_element(sub, sub_text)
 
+#--------------------------end of version 1-------------------------------
+
+
+#----------------------------- generator version 2----------------------------------------------
 
         #tags will not appear in order because dictionaries are unordered.
+
         #subs = {'name':'test name 1st', 'url':'test url 2nd', 'deadline':'test deadline 3rd', 'description':'test description 4th'}
 
         #for sub_tag, sub_text in subs.items():
             #self.sub_element(sub_tag, sub_text)
 
+#-----------------------------end of version 2--------------------------------------------------
 
+
+#---------------------------- generator version 3-------------------------------------
         subs = []
         sub1 = ['name','should be 1st']
         sub2 = ['url','should be 2nd']
@@ -82,6 +96,7 @@ class Generator(object):
         for i in range(0,len(subs)):
             self.sub_element(subs[i][0],subs[i][1])
 
+#-------------------------------end of version 3---------------------------------------
 
         indent(self.root)
         f = open("test.xml", "a")
