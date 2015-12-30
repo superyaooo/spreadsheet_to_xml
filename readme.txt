@@ -41,7 +41,7 @@ f.close()
 
 
 
-⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇  Generator Development Version History ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ 
+⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇  ⬇ ⬇ Generator Development Version History ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇  ⬇ ⬇ 
 
 
 Version.05 successfully grabs all the data(every row, every column) from an excel file, and generates an xml file with xml nodes in the desired order and format.
@@ -51,7 +51,7 @@ Version.05 successfully grabs all the data(every row, every column) from an exce
 
 
 
-**************************** GENERATOR VERSION.01 ===> use raw_input ****************************
+********************* GENERATOR VERSION.01 ===> use raw_input *********************
 
         sub = raw_input("What's the sub tag?")
         sub_text = raw_input("What's the text for %s?" % sub)
@@ -61,7 +61,7 @@ Version.05 successfully grabs all the data(every row, every column) from an exce
 
 
 
-**************************** GENERATOR VERSION.02 ===> use dictionary ****************************
+********************* GENERATOR VERSION.02 ===> use dictionary *********************
 
 #tags will not appear in order because dictionaries are unordered.
 
@@ -73,7 +73,7 @@ Version.05 successfully grabs all the data(every row, every column) from an exce
 
 
 
-*************************** GENERATOR VERSION.03 ===> use a list of lists ****************************
+******************** GENERATOR VERSION.03 ===> use a list of lists *********************
 
         subs = []
         sub1 = ['name','should be 1st']
@@ -93,7 +93,7 @@ Version.05 successfully grabs all the data(every row, every column) from an exce
 
 
 
-**************************** GENERATOR VERSION.04 ===> use a list of lists and insert list by index ****************************
+********************* GENERATOR VERSION.04 ===> use a list of lists and insert list by index *********************
 
 
     def generator(self, xls_file):
@@ -167,7 +167,7 @@ Version.05 successfully grabs all the data(every row, every column) from an exce
 
 
 
-**************************** GENERATOR VERSION.05 ===> use a dictionary and a list ****************************
+********************* GENERATOR VERSION.05 ===> use a dictionary and a list *********************
 
 
 def generator(self, xls_file):
