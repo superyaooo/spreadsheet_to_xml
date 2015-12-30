@@ -1,7 +1,7 @@
 from xml.etree.ElementTree import ElementTree
 from xml.etree.ElementTree import Element
 import xml.etree.ElementTree as etree
-impo
+import xlrd
 
 # this function indents xml tags
 def indent(elem, level=0):
@@ -20,28 +20,6 @@ def indent(elem, level=0):
             elem.tail = i
 
 
-#------------- basic xml generation test out -------------
-
-#root = Element('program')
-#tree = ElementTree(root)
-
-#name = Element('name')
-#root.append(name)
-#name.text = "test name"
-
-#url = Element('url')
-#root.append(url)
-#url.text = "test url"
-
-#deadline = Element('deadline')
-#root.append(deadline)
-#deadline.text = "test deadline"
-
-#description = Element('description')
-#root.append(description)
-#description.text = "test description"
-
-#-------------- end of basic xml generation test out -------
 
 class Generator(object):
     def __init__(self, root_tag):
@@ -51,64 +29,73 @@ class Generator(object):
         self.root = Element(self.root_tag)
         self.tree = ElementTree(self.root)
 
+    # adds sub element onto root
     def sub_element(self, elem, elem_text):
         self.sub_tag = Element(elem)
         self.root.append(self.sub_tag)
         self.sub_tag.text = elem_text
 
-    def generator(self):
-        self.set_root()
+    def generator(self, xls_file):
 
-#-------------------------generator version 1---------------------------
+        # reads xls file
+        workbook = xlrd.open_workbook(xls_file)
+        worksheet = workbook.sheet_by_index(0)
 
-        #sub = raw_input("What's the sub tag?")
-        #sub_text = raw_input("What's the text for %s?" % sub)
+        # gets the number of columns and rows of the xls file
+        col_num = worksheet.ncols
+        row_num = worksheet.nrows
 
-        #self.sub_element(sub, sub_text)
+        # loops through xls rows and columns, then generates xml sections
+        for row in range(1,row_num):
+            # sets root of the xml section of current row
+            self.set_root()
+            subs = {}
 
-#--------------------------end of version 1-------------------------------
+            for col in range(0,col_num):
+                col_name = worksheet.cell(0,col).value
+
+                if 'Name' in col_name:
+                    # sets sub-element tag name of current cell data
+                    subtag_name = "name"
+                    # sets sub-element text of current cell data
+                    sub_text = worksheet.cell(row,col).value
+
+                    #updates subs dictionary with sub-element tag name and text
+                    subs.update({subtag_name:sub_text})
+
+                if 'Deadline' in col_name:
+                    subtag_name = "deadline"
+                    sub_text = worksheet.cell(row,col).value
+
+                    subs.update({subtag_name:sub_text})
+
+                if 'Description' in col_name:
+                    subtag_name = "description"
+                    sub_text = worksheet.cell(row,col).value
+
+                    subs.update({subtag_name:sub_text})
+
+                if 'Website' in col_name:
+                    subtag_name = "url"
+                    sub_text = worksheet.cell(row,col).value
+
+                    subs.update({subtag_name:sub_text})
+
+            # adds xml sub-element onto the root by pre-designed order
+            ordered_names = ['name','url','deadline','description']
+            for i in range(0,len(ordered_names)):
+                sub_name = ordered_names[i]
+                sub_text = subs[sub_name]
+
+                self.sub_element(sub_name,sub_text)
+
+            # adds xml section to file; if file doesn't exist, creates it first
+            indent(self.root)
+            f = open("test.xml", "a")
+            self.tree.write(f)
+            f.close()
 
 
-#----------------------------- generator version 2----------------------------------------------
-
-        #tags will not appear in order because dictionaries are unordered.
-
-        #subs = {'name':'test name 1st', 'url':'test url 2nd', 'deadline':'test deadline 3rd', 'description':'test description 4th'}
-
-        #for sub_tag, sub_text in subs.items():
-            #self.sub_element(sub_tag, sub_text)
-
-#-----------------------------end of version 2--------------------------------------------------
-
-
-#---------------------------- generator version 3-------------------------------------
-        subs = []
-        sub1 = ['name','should be 1st']
-        sub2 = ['url','should be 2nd']
-        sub3 = ['deadline','should be 3rd']
-        sub4 = ['description','should be 4th']
-
-        subs.append(sub1)
-        subs.append(sub2)
-        subs.append(sub3)
-        subs.append(sub4)
-
-        for i in range(0,len(subs)):
-            self.sub_element(subs[i][0],subs[i][1])
-
-#-------------------------------end of version 3---------------------------------------
-
-        indent(self.root)
-        f = open("test.xml", "a")
-        self.tree.write(f)
-        f.close()
-
-
-#indent(root)
-
-#f=open("test.xml","a")
-#tree.write(f)
-#f.close()
 
 new_xml = Generator("program")
-new_xml.generator()
+new_xml.generator("Scholarship_example.xlsx")
