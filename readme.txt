@@ -1,4 +1,4 @@
-This app reads from an excel file and then generates an xml file with pre-designed tags/nodes, order and pretty format.
+﻿This app reads from an excel file and then generates an xml file with pre-designed tags/nodes, order and pretty format.
 It automates most part of the tedious process of manually updating an existing XML file and adjusting the format node by node, line by line.
 
 
@@ -93,7 +93,7 @@ Version.05 successfully grabs all the data(every row, every column) from an exce
 
 
 
-********************* GENERATOR VERSION.04 ===> use a list of lists and insert list by index *********************
+************** GENERATOR VERSION.04 ===> use a list of lists and insert list by index **************
 
 
     def generator(self, xls_file):

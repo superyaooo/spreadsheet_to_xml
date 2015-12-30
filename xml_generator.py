@@ -2,6 +2,7 @@ from xml.etree.ElementTree import ElementTree
 from xml.etree.ElementTree import Element
 import xml.etree.ElementTree as etree
 import xlrd
+from xml.dom import minidom
 
 # this function indents xml tags
 def indent(elem, level=0):
@@ -67,6 +68,23 @@ class Generator(object):
                     subtag_name = "deadline"
                     sub_text = worksheet.cell(row,col).value
 
+#TODO FILTER OUT CHARACTORS --------------------------
+
+                    toStrip = ['.','th','st','nd','rd',' ']
+                    months = {'January':'1', 'Feburary':'2', 'March':'3','April':'4', 'May':'5','June':'6','July':'7','August':'8','September':'9',
+                    'October':'10','November':'11','December':'12'}
+
+                    for i in range(0,len(toStrip)):
+                        char = toStrip[i]
+
+                        if char in sub_text:
+                            sub_text = sub_text.strip(char)
+
+                    for key, val in months.iteritems():
+                        if key in sub_text:
+                            sub_text = val
+# END OF TOTO -------------------------------------------
+
                     subs.update({subtag_name:sub_text})
 
                 if 'Description' in col_name:
@@ -94,6 +112,28 @@ class Generator(object):
             f = open("test.xml", "a")
             self.tree.write(f)
             f.close()
+
+    #     self.clean_up()
+    #
+    # # def replaceText(node, newText):
+    # #     node.firstChild.replaceWholeText(newText)
+    #
+    #
+    # def clean_up(self):
+    #     doc = minidom.parse("test.xml")
+    #     nodes = doc.childNodes.getElementsByTagName("program")
+    #
+    #     for node in nodes:
+    #         deadline = node.getElementsByTagName("deadline").nodeValue
+    #         if '.' in deadline:
+    #             deadline = deadline.strip('.')
+    #
+    #
+    #     f = open("test.xml","w")
+    #     doc.write(f)
+    #     f.close()
+
+
 
 
 
