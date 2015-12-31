@@ -77,9 +77,8 @@ class Generator(object):
                     for key, val in months.iteritems():
                         if key in sub_text:
                             sub_text = sub_text.replace(key,val)
-
-                    for i in range(0,len(toStrip)):
-                        char = toStrip[i]
+                            
+                    for char in toStrip:
                         if char in sub_text:
                             sub_text = sub_text.replace(char,'')
 
@@ -88,13 +87,11 @@ class Generator(object):
                 if 'Description' in col_name:
                     subtag_name = "description"
                     sub_text = worksheet.cell(row,col).value
-
                     subs.update({subtag_name:sub_text})
 
                 if 'Website' in col_name:
                     subtag_name = "url"
                     sub_text = worksheet.cell(row,col).value
-
                     subs.update({subtag_name:sub_text})
 
             # adds xml sub-element onto the root by pre-designed order
@@ -102,7 +99,6 @@ class Generator(object):
             for i in range(0,len(ordered_names)):
                 sub_name = ordered_names[i]
                 sub_text = subs[sub_name]
-
                 self.sub_element(sub_name,sub_text)
 
             # adds xml section to file; if file doesn't exist, creates it first
@@ -110,29 +106,6 @@ class Generator(object):
             f = open("test.xml", "a")
             self.tree.write(f)
             f.close()
-
-    #     self.clean_up()
-    #
-    # # def replaceText(node, newText):
-    # #     node.firstChild.replaceWholeText(newText)
-    #
-    #
-    # def clean_up(self):
-    #     doc = minidom.parse("test.xml")
-    #     nodes = doc.childNodes.getElementsByTagName("program")
-    #
-    #     for node in nodes:
-    #         deadline = node.getElementsByTagName("deadline").nodeValue
-    #         if '.' in deadline:
-    #             deadline = deadline.strip('.')
-    #
-    #
-    #     f = open("test.xml","w")
-    #     doc.write(f)
-    #     f.close()
-
-
-
 
 
 new_xml = Generator("program")
