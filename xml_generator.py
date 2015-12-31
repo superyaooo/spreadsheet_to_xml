@@ -68,22 +68,20 @@ class Generator(object):
                     subtag_name = "deadline"
                     sub_text = worksheet.cell(row,col).value
 
-#TODO FILTER OUT CHARACTORS --------------------------
-
-                    toStrip = ['.','th','st','nd','rd',' ']
-                    months = {'January':'1', 'Feburary':'2', 'March':'3','April':'4', 'May':'5','June':'6','July':'7','August':'8','September':'9',
-                    'October':'10','November':'11','December':'12'}
-
-                    for i in range(0,len(toStrip)):
-                        char = toStrip[i]
-
-                        if char in sub_text:
-                            sub_text = sub_text.strip(char)
+                    toStrip = ['.','th','nd','st','rd',' ']
+                    months ={'January':'1/','Feburary':'2/','March':'3/',
+                    'April':'4/','May':'5/','June':'6/','July':'7/',
+                    'August':'8/','September/':'9/','October':'10/',
+                    'November':'11/','December':'12/','and':','}
 
                     for key, val in months.iteritems():
                         if key in sub_text:
-                            sub_text = val
-# END OF TOTO -------------------------------------------
+                            sub_text = sub_text.replace(key,val)
+
+                    for i in range(0,len(toStrip)):
+                        char = toStrip[i]
+                        if char in sub_text:
+                            sub_text = sub_text.replace(char,'')
 
                     subs.update({subtag_name:sub_text})
 

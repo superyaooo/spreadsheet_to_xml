@@ -41,13 +41,13 @@ f.close()
 
 
 
-⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇  ⬇ ⬇ Generator Development Version History ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇  ⬇ ⬇ 
+⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇  ⬇ ⬇ Generator Development Version History ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇ ⬇  ⬇ ⬇
 
 
 Version.05 successfully grabs all the data(every row, every column) from an excel file, and generates an xml file with xml nodes in the desired order and format.
 
 
-
+Version.06 formats deadline dates during looping. If date is not in the number/number format, change it into the right format. For example: December 21st => 12/21.
 
 
 
@@ -142,7 +142,7 @@ Version.05 successfully grabs all the data(every row, every column) from an exce
 
                 tags.insert(3,tag)
 
-                
+
             if 'Website' in col_name:
                 subtag_name = "url"
                 sub_text = worksheet.cell(1,n).value
@@ -155,7 +155,7 @@ Version.05 successfully grabs all the data(every row, every column) from an exce
 
         for i in range(0,len(tags)):
             self.sub_element(tags[i][0],tags[i][1])
-               
+
 
 
         indent(self.root)
