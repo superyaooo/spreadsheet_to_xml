@@ -4,7 +4,7 @@ import xml.etree.ElementTree as etree
 import xlrd
 from xml.dom import minidom
 
-# this function indents xml tags
+# indents xml tags
 def indent(elem, level=0):
     i = "\n" + level*"  "
     if len(elem):
@@ -19,7 +19,6 @@ def indent(elem, level=0):
     else:
         if level and (not elem.tail or not elem.tail.strip()):
             elem.tail = i
-
 
 
 class Generator(object):
@@ -37,8 +36,6 @@ class Generator(object):
         self.sub_tag.text = elem_text
 
     def generator(self, xls_file):
-
-        # reads xls file
         workbook = xlrd.open_workbook(xls_file)
         worksheet = workbook.sheet_by_index(0)
 
@@ -56,9 +53,7 @@ class Generator(object):
                 col_name = worksheet.cell(0,col).value
 
                 if 'Name' in col_name:
-                    # sets sub-element tag name of current cell data
                     subtag_name = "name"
-                    # sets sub-element text of current cell data
                     sub_text = worksheet.cell(row,col).value
 
                     #updates subs dictionary with sub-element tag name and text
@@ -77,7 +72,7 @@ class Generator(object):
                     for key, val in months.iteritems():
                         if key in sub_text:
                             sub_text = sub_text.replace(key,val)
-                            
+
                     for char in toStrip:
                         if char in sub_text:
                             sub_text = sub_text.replace(char,'')
@@ -86,7 +81,7 @@ class Generator(object):
 
                 if 'Description' in col_name:
                     subtag_name = "description"
-                    sub_text = worksheet.cell(row,col).value
+                    sub_text = (worksheet.cell(row,col).value).strip()
                     subs.update({subtag_name:sub_text})
 
                 if 'Website' in col_name:
